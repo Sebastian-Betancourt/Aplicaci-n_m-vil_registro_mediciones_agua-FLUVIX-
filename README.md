@@ -1,4 +1,5 @@
 Aplicación Móvil – Registro de Mediciones de Agua (Ionic + Supabase)
+
 Este proyecto consiste en el desarrollo de una aplicación móvil construida con Ionic + Angular, cuyo objetivo es digitalizar el proceso de toma de lecturas de medidores de agua en el Distrito Metropolitano de Quito.
 La aplicación permite capturar, validar y almacenar mediciones de forma segura utilizando servicios en la nube como Supabase.
 

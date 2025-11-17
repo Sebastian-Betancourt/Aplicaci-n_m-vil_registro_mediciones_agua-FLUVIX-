@@ -1,0 +1,95 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Medidor Dashboard</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">Cerrar sesión</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <!-- TARJETA DE BIENVENIDA -->
+  <ion-card class="welcome-card">
+    <ion-card-content>
+      👋 Bienvenido, <strong>{{ userName }}</strong>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- NUEVA MEDICIÓN -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Registrar nueva medición</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+
+      <ion-item>
+        <ion-label position="floating">Valor del medidor</ion-label>
+        <ion-input type="number" [(ngModel)]="valorMedidor"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Observaciones</ion-label>
+        <ion-input [(ngModel)]="observaciones"></ion-input>
+      </ion-item>
+
+      <div class="section-title">Foto del medidor</div>
+
+      <ion-button expand="block" color="tertiary" (click)="tomarFotoMedidor()">
+        📸 Tomar foto del medidor
+      </ion-button>
+
+      <ion-item>
+        <input type="file" (change)="onFotoMedidorChange($event)">
+      </ion-item>
+
+      <div class="section-title">Foto de la fachada</div>
+
+      <ion-button expand="block" color="tertiary" (click)="tomarFotoFachada()">
+        📸 Tomar foto de la fachada
+      </ion-button>
+
+      <ion-item>
+        <input type="file" (change)="onFotoFachadaChange($event)">
+      </ion-item>
+
+      <ion-button expand="full" color="secondary" (click)="registrarMedicion()">
+        Registrar medición
+      </ion-button>
+
+    </ion-card-content>
+  </ion-card>
+
+  <!-- LISTA DE MEDICIONES (ORDEN VIEJO = #1) -->
+  <ion-card *ngFor="let m of mediciones().slice().reverse(); let i = index">
+
+    <ion-card-header>
+      <ion-card-title>Registro #{{ i + 1 }}</ion-card-title>
+    </ion-card-header>
+
+    <div class="image-row">
+      <img *ngIf="m.fotoMedidor" [src]="m.fotoMedidor" class="mini-img" (click)="abrirImagen(m.fotoMedidor)">
+      <img *ngIf="m.fotoFachada" [src]="m.fotoFachada" class="mini-img" (click)="abrirImagen(m.fotoFachada)">
+    </div>
+
+    <ion-card-content>
+      <p><strong>Valor:</strong> {{ m.valor }}</p>
+      <p *ngIf="m.observaciones"><strong>Observaciones:</strong> {{ m.observaciones }}</p>
+      <p><strong>Lat:</strong> {{ m.lat }} | <strong>Lng:</strong> {{ m.lng }}</p>
+      <p><small>Subida: {{ m.createdAt | date:'short' }}</small></p>
+      <a [href]="m.mapsLink" target="_blank">Ver en Google Maps</a>
+    </ion-card-content>
+
+  </ion-card>
+
+  <!-- MODAL DE IMAGEN -->
+  <ion-modal [isOpen]="modalOpen" (didDismiss)="cerrarModal()">
+    <ng-template>
+      <ion-content class="modal-content">
+        <img [src]="imagenSeleccionada" class="full-img">
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+</ion-content>

@@ -1,0 +1,50 @@
+<!-- src/app/dashboard/admin-dashboard/admin-dashboard.page.html -->
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Administrador</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">Cerrar sesión</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <!-- FILTRO POR NOMBRE / OBSERVACIONES / VALOR -->
+  <ion-item>
+    <ion-label position="floating">Buscar (nombre, observaciones, valor)</ion-label>
+    <ion-input [(ngModel)]="searchText" placeholder="Escribe para buscar"></ion-input>
+    <ion-button slot="end" fill="clear" (click)="searchText = ''">✖</ion-button>
+  </ion-item>
+
+  <!-- Lista filtrada -->
+  <ion-card *ngFor="let m of filteredMediciones; let i = index" class="record-card">
+    <ion-card-header>
+      <ion-card-title>
+        <div class="title-left">
+          <div class="small">#{{ i + 1 }}</div>
+          <div class="big">{{ m.user || 'Sin nombre' }}</div>
+        </div>
+        <div class="title-right">
+          <div class="date">{{ m.createdAt | date:'short' }}</div>
+        </div>
+      </ion-card-title>
+    </ion-card-header>
+
+    <div class="images">
+      <img *ngIf="m.fotoMedidor" [src]="m.fotoMedidor" class="mini" />
+      <img *ngIf="m.fotoFachada" [src]="m.fotoFachada" class="mini" />
+    </div>
+
+    <ion-card-content>
+      <p><strong>Valor:</strong> {{ m.valor }}</p>
+      <p *ngIf="m.observaciones"><strong>Observaciones:</strong> {{ m.observaciones }}</p>
+      <p><strong>Coordenadas:</strong> {{ m.lat }}, {{ m.lng }}</p>
+      <p *ngIf="m.mapsLink"><a [href]="m.mapsLink" target="_blank">Ver en Google Maps</a></p>
+    </ion-card-content>
+  </ion-card>
+
+  <div *ngIf="filteredMediciones.length === 0" class="empty">
+    No se encontraron registros.
+  </div>
+</ion-content>

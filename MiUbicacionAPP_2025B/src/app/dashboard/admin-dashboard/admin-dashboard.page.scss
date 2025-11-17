@@ -1,0 +1,42 @@
+/* src/app/dashboard/admin-dashboard/admin-dashboard.page.scss */
+
+ion-content {
+  --background: #0f1724;
+  color: #fff;
+}
+
+/* tarjeta */
+.record-card {
+  margin: 12px 10px;
+  border-radius: 12px;
+  background: #0f1a2b;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+}
+
+/* layout del header interno */
+.title-left { display: flex; flex-direction: column; }
+.title-left .small { font-size: 0.85rem; color: #9fbef0; }
+.title-left .big { font-size: 1rem; font-weight: 700; color: #e6f4ff; }
+
+.title-right .date { font-size: 0.9rem; color: #aabedb; }
+
+/* images */
+.images {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start;
+  padding: 10px 14px;
+}
+.mini {
+  width: 48%;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 2px solid rgba(255,255,255,0.03);
+}
+
+/* empty */
+.empty {
+  text-align: center;
+  color: #9fbef0;
+  margin-top: 20px;
+}
